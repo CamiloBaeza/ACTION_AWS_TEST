@@ -7,7 +7,7 @@ on:
 permissions:
   id-token: write
   contents: read
-#asaasd
+#q
 jobs:
   deploy:
     name: Deploy
