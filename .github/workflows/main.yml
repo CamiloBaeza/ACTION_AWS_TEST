@@ -1,53 +1,26 @@
-name: Despliegue en testing
-
 on:
-   push:
-     branches: [ testing ]
+  workflow_dispatch:
+env:
+  # Setting an environment variable with the value of a configuration variable
+  env_var: ${{ vars.ENV_CONTEXT_VAR }}
 
-permissions:
-  id-token: write
-  contents: read
-#qw
 jobs:
-  deploy:
-    name: Deploy
-    environment:
-      name: Development
-    runs-on: ubuntu-latest
-
-    permissions:  
-      id-token: write  
-      contents: read
+  display-variables:
+    name: ${{ vars.JOB_NAME }}
+    # You can use configuration variables with the `vars` context for dynamic jobs
+    if: ${{ vars.USE_VARIABLES == 'true' }}
+    runs-on: ${{ vars.RUNNER }}
+    environment: ${{ vars.ENVIRONMENT_STAGE }}
     steps:
-      - name: Git clone the repository
-        uses: actions/checkout@v3
+    - name: Use variables
+      run: |
+        echo "repository variable : ${{ vars.REPOSITORY_VAR }}"
+        echo "organization variable : ${{ vars.ORGANIZATION_VAR }}"
+        echo "overridden variable : ${{ vars.OVERRIDE_VAR }}"
+        echo "variable from shell environment : $env_var"
 
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
- #         role-to-assume: arn:aws:iam::042670738437:role/rol-github-terraform
-          role-to-assume: ${{secrets.AWS_ROL_GORDITOU}}
-          aws-region: us-east-1
-
-      # - name: Setup Terraform
-      #   uses: hashicorp/setup-terraform@v1
-
-      # - name: Terraform Workflow
-      # #  working-directory: aws_s3_bucket
-      #   run: |
-      #     terraform init -backend-config="bucket=tarrito-punkrock-cb-tf-test" -backend-config="key=state/terraform.tfstate" -backend-config="profile=cbtest" -backend-config="encrypt=true" -backend-config="region=us-east-1"
-      # - name: Select Workspace
-      #   run: |
-      #     terraform workspace list 
-      #     terraform workspace select test || terraform workspace new test
-      # - name: Terraform Validate
-      #   run: |
-      #     terraform state pull
-      #     terraform fmt
-      #     terraform validate
-      # - name: Terraform Plan
-      #   run:  terraform plan
-      # # - name: Terraform Apply
-      # #   run: terraform apply -auto-approve
-      # - name: Validate Creation/Changes
-      #   run: terraform state list
+    - name: ${{ vars.HELLO_WORLD_STEP }}
+      if: ${{ vars.HELLO_WORLD_ENABLED == 'true' }}
+      uses: actions/hello-world-javascript-action@main
+      with:
+        who-to-greet: ${{ vars.GREET_NAME }}
