@@ -2,7 +2,7 @@ on:
   push:
     branches: [ "testing" ]
 env:
-  # Setting an environment variable with the value of a configuration variable
+  # Setting an environment variable with the value of a configuration variablea
   env_var: ${{ vars.ENV_CONTEXT_VAR }}
 
 jobs:
