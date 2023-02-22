@@ -28,8 +28,10 @@ jobs:
  #         role-to-assume: arn:aws:iam::042670738437:role/rol-github-terraform
           role-to-assume: ${{secrets.AWS_ROL_GORDITOU}}
           aws-region: us-east-1
+      # - run: |
+      #         aws s3 cp archivo.py s3://tarrito-punkrock-cb-almacen-test/folder1/
       - run: |
-              aws s3 cp archivo.py s3://tarrito-punkrock-cb-almacen-test/folder1/
+              aws s3 cp archivo.py s3://${{env.BUCKET_NAME}}/folder1/
       # - name: Setup Terraform
       #   uses: hashicorp/setup-terraform@v1
 
