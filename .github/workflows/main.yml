@@ -1,9 +1,7 @@
 name: Despliegue en testing
-
 on:
    push:
      branches: [ testing ]
-
 permissions:
   id-token: write
   contents: read
