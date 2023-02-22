@@ -14,6 +14,7 @@ jobs:
     name: Deploy
     # environment:
     #   name: Development
+    environment: Development
     runs-on: ubuntu-latest
 
     permissions:  
