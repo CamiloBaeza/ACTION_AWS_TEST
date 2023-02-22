@@ -9,12 +9,11 @@ permissions:
   contents: read
 # env:
 #   BUCKET_NAME : tarrito-punkrock-cb-almacen-test
-environment:
-  name: Development
 jobs:
   deploy:
     name: Deploy
-
+    # environment:
+    #   name: Development
     runs-on: ubuntu-latest
 
     permissions:  
