@@ -7,15 +7,11 @@ on:
 permissions:
   id-token: write
   contents: read
-# env:
-#   BUCKET_NAME : tarrito-punkrock-cb-almacen-test
-environment: Development
-
+env:
+  BUCKET_NAME : tarrito-punkrock-cb-almacen-test
 jobs:
   deploy:
     name: Deploy
-    # environment:
-    #   name: Development
     runs-on: ubuntu-latest
     steps:
       - name: Git clone the repository
